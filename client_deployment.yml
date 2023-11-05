@@ -1,20 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: client_deployment
+  name: client-deployment
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       component: web
-  templates:
+  template:
     metadata:
-      labels: 
+      labels:
         component: web
     spec:
       containers:
-      - name: client
-        image: stylerhun/multi-client
-        ports:
-          - containerPort: 3000
+        - name: client
+          image: stylerhun/multi-client
+          ports:
+            - containerPort: 3000
+
     

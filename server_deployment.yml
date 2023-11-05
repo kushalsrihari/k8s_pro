@@ -1,24 +1,24 @@
-apiVersion: apps/v1 
-kind: Deployment 
-metadata: 
-  name: server_deployment
-spec: 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-deployment
+spec:
   replicas: 1
   selector:
     matchLabels:
-      component: server 
-  templates:
+      component: server
+  template:
     metadata:
       labels:
         component: server
     spec:
       containers:
         - name: server
-          image: stylerhun/multi-client
+          image: stylerhun/multi-server
           ports:
             - containerPort: 5000
-          env: 
-            - name: PGUSER 
+          env:
+            - name: PGUSER
               value: postgres
             - name: PGHOST
               value: postgres-cluster-ip-service
@@ -27,7 +27,7 @@ spec:
             - name: PGDATABASE
               value: postgres
             - name: PGPASSWORD
-              valueFrom:  
-                secretsKeyRef: 
+              valueFrom:
+                secretKeyRef:
                   name: pgpassword
-                  key: PGPASSWORD 
+                  key: PGPASSWORD
