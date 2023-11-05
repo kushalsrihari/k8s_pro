@@ -6,4 +6,15 @@ spec:
   replicas: 2
   selector:
     matchLabels:
+      component: web
+  templates:
+    metadata:
+      labels: 
+        component: web
+    spec:
+      containers:
+      - name: client
+        image: stylerhun/multi-client
+        ports:
+          - containerPort: 3000
     
