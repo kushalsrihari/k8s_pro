@@ -1,0 +1,33 @@
+apiVersion: apps/v1 
+kind: Deployment 
+metadata: 
+  name: server_deployment
+spec: 
+  replicas: 1
+  selector:
+    matchLabels:
+      component: server 
+  templates:
+    metadata:
+      labels:
+        component: server
+    spec:
+      containers:
+        - name: server
+          image: stylerhun/multi-client
+          ports:
+            - containerPort: 5000
+          env: 
+            - name: PGUSER 
+              value: postgres
+            - name: PGHOST
+              value: postgres-cluster-ip-service
+            - name: PGPORT
+              value: "5432"
+            - name: PGDATABASE
+              value: postgres
+            - name: PGPASSWORD
+              valueFrom:  
+                secretsKeyRef: 
+                  name: pgpassword
+                  key: PGPASSWORD 
